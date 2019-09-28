@@ -1,47 +1,52 @@
 import axios from 'axios';
 
-export const FETCH_SMURF_START = 'FETCH_SMURF_START';
-export const FETCH_SMURF_SUCCESS = 'FETCH_SMURF_SUCCESS';
-export const FETCH_SMURF_FAILURE = 'FETCH_SMURF_FAILURE';
 export const ADD_SMURF = 'ADD_SMURF';
-export const ADD_SMURF_FAILURE = 'ADD_SMURF_FAILURE';
+export const FETCH_SMURF = 'FETCH_SMURF';
 
-export const fetchSmurf = () => {
-  return function(dispatch) {
-    dispatch({ type: FETCH_SMURF_START });
-    setTimeout(() => {
-      axios
-        .get('http://localhost:3333/smurfs')
-        .then(res => {
-          // console.log(res);
-          dispatch({ type: FETCH_SMURF_SUCCESS, payload: res.data[0] });
-          console.log(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-          dispatch({
-            type: FETCH_SMURF_FAILURE,
-            payload: err.message + ' fetching smurfs'
-          });
-        });
-    }, 2000);
+const apiUrl = 'http://localhost:3333/smurfs';
 
-    // dispatch({ type: ADD_SMURF });
-    // addSmurf(() => {
-    //   axios
-    //     .post('http://localhost:3333')
-    //     .then(res => {
-    //       console.log('posted data: ', res);
-    //       dispatch({ type: ADD_SMURF, payload: res.data.smurf });
-    //       console.log(res.data.smurf);
-    //     })
-    //     .catch(err => {
-    //       console.log('add error ', err);
-    //       dispatch({
-    //         type: ADD_SMURF_FAILURE,
-    //         payload: err.message + ' adding smurf'
-    //       });
-    //     });
-    // });
+export const createSmurf = ({ name, age, height }) => {
+  return dispatch => {
+    return axios
+      .post(apiUrl, { name, age, height })
+      .then(response => {
+        dispatch(createSmurfSuccess(response.data));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+};
+
+export const createSmurfSuccess = data => {
+  return {
+    type: ADD_SMURF,
+    payload: {
+      id: data.id,
+      name: data.name,
+      age: data.height,
+      height: data.height
+    }
+  };
+};
+
+export const fetchSmurfs = smurfs => {
+  return {
+    type: FETCH_SMURF,
+    smurfs
+  };
+};
+
+export const fetchAllSmurfs = () => {
+  return dispatch => {
+    return axios
+      .get(apiUrl)
+      .then(response => {
+        console.log(response);
+        dispatch(fetchSmurfs(response.data));
+      })
+      .catch(error => {
+        throw error;
+      });
   };
 };

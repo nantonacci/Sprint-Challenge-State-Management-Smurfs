@@ -6,9 +6,15 @@ import App from './components/App';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { reducer } from './reducers';
 
-const store = createStore(reducer, applyMiddleware(thunk));
+import rootReducer from './reducers';
+import { fetchAllSmurfs } from './actions/index.js';
+
+import registerServiceWorker from './registerServiceWorker';
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
+
+store.dispatch(fetchAllSmurfs());
 
 ReactDOM.render(
   <Provider store={store}>
@@ -16,3 +22,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+registerServiceWorker();
