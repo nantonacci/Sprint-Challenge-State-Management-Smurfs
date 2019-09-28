@@ -16,7 +16,17 @@ export const reducer = (state = initialState, action) => {
     case ADD_SMURF:
       return {
         ...state,
-        action.payload};
+        smurfs: [
+          ...state.smurfs,
+          action.payload
+          // {
+          //   name: action.payload.name,
+          //   age: action.payload.age,
+          //   height: action.payload.height,
+          //   id: action.payload.id
+          // }
+        ]
+      };
 
     case FETCH_SMURF:
       return {
