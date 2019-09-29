@@ -4,7 +4,7 @@ import NewSmurf from './NewSmurf';
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddPost: smurf => {
+    onAddSmurf: smurf => {
       dispatch(createSmurf(smurf));
     }
   };

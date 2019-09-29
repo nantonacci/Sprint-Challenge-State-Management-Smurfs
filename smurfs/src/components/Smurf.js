@@ -11,7 +11,7 @@ const styles = {
   borderRadius: '7px'
 };
 
-export default ({ smurf: { name, age, height, _id }, onDelete }) => {
+export default ({ smurf: { name, age, height, id }, onDelete }) => {
   return (
     <div style={styles}>
       <h2>{name}</h2>

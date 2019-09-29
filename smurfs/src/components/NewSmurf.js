@@ -1,6 +1,5 @@
-// NewSmurf.js
-
 import React from 'react';
+import { ADD_SMURF } from '../actions/types';
 
 class NewSmurf extends React.Component {
   state = {
@@ -16,12 +15,8 @@ class NewSmurf extends React.Component {
   };
 
   handleSubmit = e => {
-    e.preventDefault();
-    if (
-      this.state.name.trim() &&
-      this.state.age.trim() &&
-      this.state.height.trim()
-    ) {
+    // e.preventDefault();
+    if (this.state.name && this.state.age && this.state.height) {
       this.props.onAddSmurf(this.state);
       this.handleReset();
     }

@@ -22,7 +22,7 @@ export const createSmurfSuccess = data => {
   return {
     type: ADD_SMURF,
     payload: {
-      _id: data._id,
+      id: data.id,
       name: data.name,
       age: data.age,
       height: data.height
